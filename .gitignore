@@ -1,0 +1,24 @@
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# Package building
+/Meta/
+/doc/
+inst/doc
+
+# Temporary files
+*~
+\#*\#
+.\#*
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.tar.gz
+*.zip

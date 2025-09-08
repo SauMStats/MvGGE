@@ -1,0 +1,28 @@
+Package: MvGGE
+Type: Package
+Title: Multi-Phenotype Joint Testing of Main Genetic and Gene-Environment Interaction Effects
+Version: 1.0.0
+Authors@R: c(
+    person("Saurabh", "Mishra", email = "saurabh.iith.stats@gmail.com", role = c("aut", "cre")),
+    person("Arunabha", "Majumdar", email = "arunabha.majumdar@example.com", role = "aut"))
+Description: Performs joint multi-phenotype testing for genetic main effects and 
+    gene-environment interactions using MANOVA for continuous phenotypes and GEE 
+    (Generalized Estimating Equations) for binary and mixed phenotypes. The package
+    provides a unified testing framework that automatically detects phenotype types
+    and applies appropriate statistical methods.
+License: MIT + file LICENSE
+URL: https://github.com/SauMStats/MvGGE_Codes
+BugReports: https://github.com/SauMStats/MvGGE_Codes/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    MASS (>= 7.3-50),
+    stats
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
