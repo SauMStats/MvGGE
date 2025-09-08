@@ -79,17 +79,17 @@ print(result_mixed)
 
 Output example (for mixed case):
 ```
-print(result_mixed)
-$results
-$results$test_type
-[1] "Wald Chi-Square"
+> summary(result_mixed)
+MvGGE Analysis Summary
+======================
 
-$results$statistic
-[1] 20.08682
+Analysis: Mixed (Y1 Continuous, Y2 Binary) 
+Sample Size: 1000 
+Method: GEE-Mixed 
+Test Statistic: 20.0868 
+P-value: 0.0004801
+Significant: Yes  # (at 0.05)
 
-$results$p_value
-             [,1]
-[1,] 0.0004800719
 ```
 
 ### Simulation Customization
@@ -140,3 +140,4 @@ This package is licensed under the GPL-3 License. See the [LICENSE](LICENSE) fil
 
 
 For questions or collaboration, feel free to reach out or open an issue.
+
