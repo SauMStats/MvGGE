@@ -12,7 +12,7 @@ simulate_data(
   beta_e = c(0.2, 0.2),
   beta_ge = c(0.2, 0.2),
   rho = 0.3,
-  tau1 = 0.7,
+  tau1 = 0.8,
   tau2 = 0.8,
   seed = NULL
 )
@@ -69,9 +69,9 @@ utils::head(data.frame(data[1:6]))
 # Simulation with strong effects
 data_strong <- simulate_data(
   n = 500,
-  beta_g = c(0.3, 0.3), 
-  beta_ge = c(0.4, 0.4),
-  rho = 0.6
+  beta_g = c(0.1, 0.1), 
+  beta_ge = c(0.3, 0.3),
+  rho = 0.3
 )
 
 # Test the simulated data

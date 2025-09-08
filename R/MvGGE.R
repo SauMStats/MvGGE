@@ -204,31 +204,31 @@ validate_inputs <- function(Y1, Y2, G, E) {
     n1 <- length(Y1)
   }
   
-  # # Check G coding (should be 0, 1, 2 for additive model)
-  # unique_G <- unique(G)
-  # if (!all(unique_G %in% 0:2)) {
-  #   stop("Genotype G must be coded as 0, 1, or 2 (additive coding)")
-  # }
-  # 
-  # # Check for Hardy-Weinberg proportions (warning only)
-  # G_counts <- table(G)
-  # if (length(G_counts) == 3) {
-  #   n_total <- sum(G_counts)
-  #   p <- (G_counts[["1"]] + 2 * G_counts[["2"]]) / (2 * n_total)
-  #   expected_HW <- c((1-p)^2, 2*p*(1-p), p^2) * n_total
-  #   names(expected_HW) <- c("0", "1", "2")
-  #   
-  #   # Chi-square test for HWE
-  #   if (all(expected_HW >= 5)) {
-  #     hwe_chi2 <- sum((G_counts - expected_HW)^2 / expected_HW)
-  #     hwe_p <- pchisq(hwe_chi2, df = 1, lower.tail = FALSE)
-  #     if (hwe_p < 0.05) {
-  #       warning("Genotype frequencies deviate significantly from Hardy-Weinberg equilibrium (p = ", 
-  #              round(hwe_p, 4), ")")
-  #     }
-  #   }
-  # }
-  # 
+  # Check G coding (should be 0, 1, 2 for additive model)
+  unique_G <- unique(G)
+  if (!all(unique_G %in% 0:2)) {
+    stop("Genotype G must be coded as 0, 1, or 2 (additive coding)")
+  }
+  
+  # Check for Hardy-Weinberg proportions (warning only)
+  G_counts <- table(G)
+  if (length(G_counts) == 3) {
+    n_total <- sum(G_counts)
+    p <- (G_counts[["1"]] + 2 * G_counts[["2"]]) / (2 * n_total)
+    expected_HW <- c((1-p)^2, 2*p*(1-p), p^2) * n_total
+    names(expected_HW) <- c("0", "1", "2")
+    
+    # Chi-square test for HWE
+    if (all(expected_HW >= 5)) {
+      hwe_chi2 <- sum((G_counts - expected_HW)^2 / expected_HW)
+      hwe_p <- pchisq(hwe_chi2, df = 1, lower.tail = FALSE)
+      if (hwe_p < 0.05) {
+        warning("Genotype frequencies deviate significantly from Hardy-Weinberg equilibrium (p = ", 
+               round(hwe_p, 4), ")")
+      }
+    }
+  }
+  
   # Check binary phenotypes coding
   is_Y1_binary <- length(unique(Y1)) <= 2 && all(unique(Y1) %in% c(0, 1))
   is_Y2_binary <- length(unique(Y2)) <= 2 && all(unique(Y2) %in% c(0, 1))
@@ -1110,9 +1110,9 @@ test_MvGGE <- function(Y1, Y2, G, E, config = NULL) {
 #' # Simulation with strong effects
 #' data_strong <- simulate_data(
 #'   n = 500,
-#'   beta_g = c(0.3, 0.3), 
-#'   beta_ge = c(0.4, 0.4),
-#'   rho = 0.6
+#'   beta_g = c(0.1, 0.1), 
+#'   beta_ge = c(0.3, 0.3),
+#'   rho = 0.3
 #' )
 #' 
 #' # Test the simulated data
@@ -1133,7 +1133,7 @@ simulate_data <- function(n = 1000,
                          beta_e = c(0.2, 0.2),
                          beta_ge = c(0.2, 0.2), 
                          rho = 0.3,
-                         tau1 = 0.7, 
+                         tau1 = 0.8, 
                          tau2 = 0.8,
                          seed = NULL) {
   

@@ -15,7 +15,7 @@ Gene-environment (GxE) interactions play a crucial role in complex phenotypes, b
 Key features:
 - Unified wrapper function `test_MvGGE()` for automatic phenotype type detection (bivariate support for mixed/binary; multi-phenotype for continuous).
 - Simulation tools to generate data under various scenarios (e.g., varying MAF, effect sizes, pleiotropy).
-- Demonstrated superior power in simulations and real-world applications (e.g., UK Biobank lipid phenotypes with sleep duration as the environmental factor, identifying novel loci).
+- **_Note_**: _The current version of the paper supports bivariate phenotypes only._
 
 This package is ideal for researchers in genetic epidemiology, biostatistics, and related fields analyzing GWAS or similar data.
 
@@ -46,12 +46,23 @@ No additional installations are required beyond these.
 ## Usage
 
 ### Quick Start
-The core function is `test_MvGGE(Y1, Y2, G, E)`, which automatically detects phenotype types and performs joint test.
+The core function is `test_MvGGE(Y1, Y2, G, E)`, which automatically detects phenotype types and performs joint test. 
 
 ```r
 # Simulate bivariate data (continuous Y1/Y2, binary Yb1/Yb2)
 set.seed(123)
-sim_data <- simulate_data(n = 1000, maf = 0.2, f = 0.2, beta_g = c(0.05, 0.05), beta_ge = c(0.2, 0.2))
+sim_data <- simulate_data(
+  n       = 1000,            # sample size
+  maf     = 0.25,            # minor allele frequency
+  f       = 0.2,             # environmental exposure pervalance
+  rho     = 0.2,             # correlation between continuous phenotypes (Y1, Y2)
+  beta_g  = c(0.1, 0.1),     # genetic effect sizes for Y1 and Y2
+  beta_e  = c(0.2, 0.2),     # environmental effect sizes for Y1 and Y2
+  beta_ge = c(0.2, 0.2),     # G×E interaction effect sizes for Y1 and Y2
+  tau1    = 0.8,             # threshold for binary phenotype Yb1
+  tau2    = 0.8              # threshold for binary phenotype Yb2
+)
+
 
 # Test 1: Bivariate Continuous
 result_cont <- test_MvGGE(sim_data$Y1, sim_data$Y2, sim_data$G, sim_data$E)
@@ -66,20 +77,19 @@ result_mixed <- test_MvGGE(sim_data$Y1, sim_data$Yb2, sim_data$G, sim_data$E)
 print(result_mixed)
 ```
 
-Output example (for continuous case):
+Output example (for mixed case):
 ```
-$analysis_type
-[1] "Continuous Bivariate (MANOVA)"
-
+print(result_mixed)
 $results
 $results$test_type
-[1] "F-statistic (Wilks)"
+[1] "Wald Chi-Square"
 
 $results$statistic
-[1] 0.85  # Approximate value; varies by data
+[1] 20.08682
 
 $results$p_value
-[1] 0.012
+             [,1]
+[1,] 0.0004800719
 ```
 
 ### Simulation Customization
@@ -125,7 +135,8 @@ Contributions are welcome! Please fork the repository and submit pull requests. 
 This package is licensed under the GPL-3 License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
-- Saurabh Mishra: [saurabh.mishra@math.iith.ac.in](mailto:saurabh.mishra@math.iith.ac.in) (maintainer)
+- Saurabh Mishra: [saurabh.iith.stats@gmail.com](mailto:saurabh.mishra@math.iith.ac.in) (maintainer)
 - Arunabha Majumdar: [arun.majum@math.iith.ac.in](mailto:arun.majum@math.iith.ac.in)
+
 
 For questions or collaboration, feel free to reach out or open an issue.
